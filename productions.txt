@@ -1,0 +1,104 @@
+#===============================================================
+# DOCELOWE PRODUKCJE
+#===============================================================
+
+
+start : module                           
+
+module : blocksquence                                          
+        
+block_sequence : block
+              | block block_sequence
+
+block : definition
+      | statement
+      
+definition : variable_definition SEMICOLON
+           | type_definition SEMICOLON
+           | function_definition SEMICOLON
+           
+variable_definition : CREATE_VAR NAME ASSIGN expression                                                 IMPLEMENTED
+
+type_definition : type NAME COLON name_sequence OPEN_BRACKET typebody CLOSE_BRACKET 
+                | type NAME OPEN_BRACKET typebody CLOSE_BRACKET
+
+function_definition : func NAME OPEN_PARENTHESIS name_sequence CLOSE_PARENTHESIS function_body
+
+function_body : OPEN_BRACKET function_statement_sequence CLOSE_BRACKET
+
+name_sequence : NAME
+              | NAME COMMA name_sequence 
+
+typebody : field_definition SEMICOLON
+         | method_definition SEMICOLON
+         | field_definition SEMICOLON typebody
+         | method_definition SEMICOLON typebody
+
+field_definition : default_field_definition
+                 | empty_field_definition
+                 
+default_field_definition : CREATE_VAR NAME ASSIGN expression
+
+empty_field_definition : CREATE_VAR NAME
+
+function_statement : RETURN expression SEMICOLON                                            
+                   | statement
+
+statement : PRINT expression SEMICOLON                                                                   IMPLEMENTED                                                    
+          | expression SEMICOLON                                                                         IMPLEMENTED
+          | condition SEMICOLON                            
+          | variable_definition
+          | variable_setting
+          
+statement_sequence : statement 
+                   | statement statement_sequence
+          
+condition : until_loop                                  IMPLEMENTED                                
+          | if_cond                                     IMPLEMENTED 
+          
+until_loop : UNTIL expression OPEN_BRACKET statement_sequence CLOSE_BRACKET                   IMPLEMENTED         
+
+if_condition: IF OPEN_PARENTHESIS expression CLOSE_PARENTHESIS OPEN_BRACKET statement_sequence CLOSE_PARENTHESIS                                                              IMPLEMENTED
+            | IF OPEN_PARENTHESIS expression CLOSE_PARENTHESIS OPEN_BRACKET statement_sequence CLOSE_PARENTHESIS ELSE OPEN_BRACKET statement_sequence CLOSE_PARENTHESIS       IMPLEMENTED
+
+expression : OPEN_PARENTHESIS expression CLOSE_PARENTHESIS                                    IMPLEMENTED                                                 
+           | expression PLUS expression                                                       IMPLEMENTED
+           | expression MINUS expression                                                      IMPLEMENTED
+           | expression DIVIDE expression                                                     IMPLEMENTED
+           | expression TIMES expression                                                      IMPLEMENTED 
+           | expression DOT NAME OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS           
+           | expression EQUALS expression                                                     
+           | expression AND expression                                                        
+           | expression OR expression                                                         
+           | value                                                                            IMPLEMENTED
+           | name_ref                                                                         IMPLEMENTED
+           | name_ref OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS              
+           
+expression_list : expression 
+                | expression COMMA expression_list
+           
+value : string                                    IMPLEMENTED
+      | NUMBER                                    IMPLEMENTED
+      | NULL                                      IMPLEMENTED
+      | bool                                      IMPLEMENTED
+      
+bool : TRUE                                                 IMPLEMENTED
+     | FALSE                                                IMPLEMENTED
+           
+name_ref : NAME                                                         IMPLEMENTED       
+         | name_ref DOT NAME              
+         
+function_call : name_ref OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS
+           
+
+                
+
+
+     
+
+
+
+
+
+
+
