@@ -1,4 +1,5 @@
 from lang_types import *
+from expression import CallVariableMethod
 import abc
 
 class PrintStatement():
@@ -21,7 +22,8 @@ class IfStatement():
     def evaluate(self,state,space_path):
         subpath = space_path + ['if']
         state.create_namespace(subpath)
-        if Bool(True).EQUALS(self.condition.evaluate(state,subpath)).value ==True:
+        true = Bool(True)
+        if CallVariableMethod(true,"EQUALS",[self.condition]).evaluate(state,subpath).value == True:
             for statement in self.if_true_statements:
                 statement.evaluate(state,subpath)
         elif self.else_statements != None:
@@ -36,7 +38,9 @@ class UntilStatement():
     def evaluate(self,state,space_path):
         subpath = space_path + ['until']
         state.create_namespace(subpath)
-        while Bool(False).EQUALS(self.condition.evaluate(state,subpath)).value ==True:
+        false = Bool(False)
+        condition_result = CallVariableMethod(false,"EQUALS",[self.condition]).evaluate(state,subpath)
+        while condition_result.value ==True:
             for statement in self.statements:
                 statement.evaluate(state,subpath)
         state.remove_namespace(subpath)

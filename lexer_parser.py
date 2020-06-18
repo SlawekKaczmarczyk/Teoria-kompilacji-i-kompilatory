@@ -193,6 +193,18 @@ def p_if_2(p):
 def until(p): 
     'until_loop: UNTIL expression OPEN_BRACKET statement_sequence CLOSE_PARENTHESIS'
     p[0] = UntilStatement(p[2],p[4])
+
+#===========EXPRESSION LIST===========
+
+def p_expression_list_1(p):
+    'expression_list : expression '
+    p[0] = [p[1]]
+    
+def p_expression_list_2(p):
+    'expression_list : expression_list COMMA expression'
+    p[0] = p[1]
+    p[0].append(p[3])
+    
     
 #===========EXPRESSION===========
     
@@ -202,23 +214,27 @@ def p_expression_1(p):
 
 def p_expression_2(p):
     'expression : expression PLUS expression'
-    p[0] = p[1].PLUS(p[3])
+    p[0] = CallVariableMethod(p[1],"PLUS",[p[3]])
     
 def p_expression_3(p):
     'expression : expression MINUS expression'
-    p[0] = p[1].MINUS(p[3])
+    p[0] = CallVariableMethod(p[1],"MINUS",[p[3]])
 
 def p_expression_4(p):
     'expression : expression DIVIDE expression'
-    p[0] = p[1].DIVIDE(p[3])
+    p[0] = CallVariableMethod(p[1],"DIVIDE",[p[3]])
     
 def p_expression_5(p):
     'expression : expression TIMES expression'
-    p[0] = p[1].TIMES(p[3])
+    p[0] = CallVariableMethod(p[1],"TIMES",[p[3]])
     
 def p_expression_6(p):
     'expression : OPEN_PARENTHESIS expression CLOSE_PARENTHESIS'
     p[0] = p[2]
+    
+def p_expression_7(p):
+    'expression : expression DOT NAME OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS'
+    p[0] = CallVariableMethod(p[1],p[3],p[5])
     
 def p_expression_8(p):
     'expression : name_ref'

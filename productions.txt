@@ -19,8 +19,7 @@ definition : variable_definition SEMICOLON
            
 variable_definition : CREATE_VAR NAME ASSIGN expression                                                 IMPLEMENTED
 
-type_definition : type NAME COLON name_sequence OPEN_BRACKET typebody CLOSE_BRACKET 
-                | type NAME OPEN_BRACKET typebody CLOSE_BRACKET
+type_definition : type NAME OPEN_BRACKET typebody CLOSE_BRACKET 
 
 function_definition : func NAME OPEN_PARENTHESIS name_sequence CLOSE_PARENTHESIS function_body
 
@@ -66,7 +65,7 @@ expression : OPEN_PARENTHESIS expression CLOSE_PARENTHESIS                      
            | expression MINUS expression                                                      IMPLEMENTED
            | expression DIVIDE expression                                                     IMPLEMENTED
            | expression TIMES expression                                                      IMPLEMENTED 
-           | expression DOT NAME OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS           
+           | expression DOT NAME OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS           IMPLEMENTED          
            | expression EQUALS expression                                                     
            | expression AND expression                                                        
            | expression OR expression                                                         
@@ -74,8 +73,8 @@ expression : OPEN_PARENTHESIS expression CLOSE_PARENTHESIS                      
            | name_ref                                                                         IMPLEMENTED
            | name_ref OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS              
            
-expression_list : expression 
-                | expression COMMA expression_list
+expression_list : expression                                            IMPLEMENTED
+                | expression COMMA expression_list                      IMPLEMENTED
            
 value : string                                    IMPLEMENTED
       | NUMBER                                    IMPLEMENTED
