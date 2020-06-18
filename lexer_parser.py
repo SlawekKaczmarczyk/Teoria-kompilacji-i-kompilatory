@@ -42,6 +42,7 @@ tokens = [
     'MINUS',
     'TIMES',
     'DIVIDE',
+    'UMINUS',
     'OPEN_PARENTHESIS',
     'CLOSE_PARENTHESIS',
     'OPEN_BRACKET',

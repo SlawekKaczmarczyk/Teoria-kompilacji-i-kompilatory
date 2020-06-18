@@ -44,6 +44,10 @@ def NumberMINUS(state,space_path,*args):
     other = args[1].evaluate(state,space_path)
     checkSameTypeThrow(this,other)
     return Number(this.value+other.value)
+def NumberUMINUS(state,space_path,*args):
+    checkArgumentCountThrow(1,args)
+    this = args[0]
+    return Number(-this.value)
 def NumberDIVIDE(state,space_path,*args):
     checkArgumentCountThrow(2,args)
     this = args[0]
@@ -71,6 +75,7 @@ class Number(Type):
                            "MINUS" : NumberMINUS,
                            "DIVIDE" : NumberDIVIDE,
                            "TIMES" : NumberTIMES,
+                           "UMINUS": NumberUMINUS,
                            "EQUALS" : NumberEQUALS
                             }
     
