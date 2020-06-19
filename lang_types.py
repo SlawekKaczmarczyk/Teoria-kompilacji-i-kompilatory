@@ -66,6 +66,18 @@ def NumberEQUALS(state,space_path,*args):
     other = args[1].evaluate(state,space_path)
     checkSameTypeThrow(this,other)
     return Bool(this.value == other.value)
+def NumberGREATER(state,space_path,*args):
+    checkArgumentCountThrow(2,args)
+    this = args[0]
+    other = args[1].evaluate(state,space_path)
+    checkSameTypeThrow(this,other)
+    return Bool(this.value > other.value)
+def NumberLESS(state,space_path,*args):
+    checkArgumentCountThrow(2,args)
+    this = args[0]
+    other = args[1].evaluate(state,space_path)
+    checkSameTypeThrow(this,other)
+    return Bool(this.value < other.value)
 
 class Number(Type):
     def __init__(self,number_value):
@@ -76,7 +88,9 @@ class Number(Type):
                            "DIVIDE" : NumberDIVIDE,
                            "TIMES" : NumberTIMES,
                            "UMINUS": NumberUMINUS,
-                           "EQUALS" : NumberEQUALS
+                           "EQUALS" : NumberEQUALS,
+                           "GREATER" : NumberGREATER,
+                           "LESS" : NumberLESS
                             }
     
 #     def PLUS(self,other):
