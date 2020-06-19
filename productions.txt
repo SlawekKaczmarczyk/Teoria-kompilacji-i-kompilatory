@@ -67,7 +67,8 @@ if_condition: IF OPEN_PARENTHESIS expression CLOSE_PARENTHESIS OPEN_BRACKET stat
 expression : OPEN_PARENTHESIS expression CLOSE_PARENTHESIS                                    IMPLEMENTED                                                 
            | expression PLUS expression                                                       IMPLEMENTED
            | MINUS expression                                                                 IMPLEMENTED
-           | expression DIVIDE expression                                                     IMPLEMENTED
+           | expression MINUS expression                                                      IMPLEMENTED
+           | expression DIVIDE expression                                                     
            | expression TIMES expression                                                      IMPLEMENTED 
            | expression DOT NAME OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS           IMPLEMENTED  
            | expression DOT NAME OPEN_PARENTHESIS CLOSE_PARENTHESIS                           IMPLEMENTED 

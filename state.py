@@ -10,7 +10,7 @@ class State():
     def get_variable(self,name,space_path):
         path = self.get_variable_path(name,space_path)
         if path!= None:
-            return self.namespaces[path][name]
+            return self.namespaces[separator.join(path)][name]
         return lang_types.Null()
     
     def get_variable_path(self,name,space_path):
@@ -18,12 +18,13 @@ class State():
             namespace = separator.join(space_path[0:i])
             if namespace in self.namespaces:
                 if name in self.namespaces[namespace]:
-                    return namespace
+                    return namespace.split(separator)
         return None
     
     def set_variable(self,name,space_path,variable):
         namespace = separator.join(space_path)
-        if namespace in self.namespaces:
+#         print(f'looking for {namespace} in {self.namespaces.keys()}')
+        if namespace in self.namespaces.keys():
             self.namespaces[namespace][name] = variable
         
             
@@ -38,4 +39,5 @@ class State():
     def remove_namespace(self,space_path):
         namespace = separator.join(space_path)
         del self.namespaces[namespace]
+        
         

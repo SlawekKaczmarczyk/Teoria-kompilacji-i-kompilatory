@@ -127,7 +127,7 @@ precedence = (
     ('nonassoc', 'LESSER', 'GREATER'),
     ('left','PLUS','MINUS'),
     ('left','TIMES','DIVIDE'),
-    ('right','UMINUS'),
+    ('left','DOT')
     )
 
 
@@ -239,8 +239,14 @@ def p_expression_2(p):
     p[0] = CallVariableMethod(p[1],"PLUS",[p[3]])
     
 def p_expression_3(p):
-    'expression : expression MINUS expression'
-    p[0] = CallVariableMethod(p[1],"MINUS",[p[3]])
+    """expression : expression MINUS expression"""
+    exp2 = CallVariableMethod(p[3],"MINUS",[])
+    p[0] = CallVariableMethod(p[1],"PLUS",[exp2])
+
+def p_expression_4(p):
+    """expression : MINUS expression"""
+    
+    p[0] = CallVariableMethod(p[2],"MINUS",[])
 
 # DON'T TOUCH until Number will be split to float and int
 
@@ -279,10 +285,6 @@ def p_expression_11(p):
 def p_expression_12(p):
     'expression : name_ref'
     p[0] = p[1]
-
-def p_expression_0(p):
-    'expression : MINUS expression %prec UMINUS'
-    p[0] = -p[1]
 
 def p_name_ref_1(p):
     'name_ref : NAME'

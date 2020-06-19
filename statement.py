@@ -43,9 +43,7 @@ class UntilStatement():
         true = Bool(True)
         while True:
             cond = self.condition.evaluate(state,space_path)
-            print(f"cond result {cond.value}")
             condition_result = CallVariableMethod(true,"EQUALS",[cond]).evaluate(state,space_path)
-            print(f"is cond true {condition_result.value}")
             if condition_result.value == False:
                 for statement in self.statements:
                     statement.evaluate(state,subpath)
@@ -70,12 +68,12 @@ class ReferenceDefinitionStatement():
         state.create_variable(self.ref_name,space_path,reference)
         
 class VariableSetStatement():
-    def __init__(self,var_ref,expression):
-        self.var_ref = var_ref
+    def __init__(self,var_name,expression):
+        self.var_name = var_name
         self.expression = expression
     def evaluate(self,state,space_path):
         exp_result = self.expression.evaluate(state,space_path)
-        self.var_ref.set_value(state,space_path,exp_result)
+        self.var_name.set_value(state,space_path,exp_result)
     
     
         

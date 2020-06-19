@@ -80,12 +80,9 @@ def NumberPLUS(state,space_path,*args):
     return Number(this.value+other.value)
 
 def NumberMINUS(state,space_path,*args):
-    checkArgumentCountThrow(2,args)
+    checkArgumentCountThrow(1,args)
     this = args[0]
-    other = args[1].evaluate(state,space_path)
-    checkSameTypeThrow(this,other)
-    return Number(this.value+other.value)
-
+    return Number(-this.value)
     
 def NumberDIVIDE(state,space_path,*args):
     checkArgumentCountThrow(2,args)
@@ -224,11 +221,11 @@ class MyException(Type,Exception):
 
 def checkArgumentCountThrow(n,args):
     if len(args) != n:
-        raise MyException("Wrong argument count")
+        raise MyException(f"Wrong argument count expected {n} got {len(args)}")
         
 def checkSameTypeThrow(a,b):
     if a.type_name != b.type_name:
-        raise MyException("Types not matching")
+        raise MyException(f"Types not matching, {a.type_name} /= {b.type_name}")
         
 def checkCallableThrow(x):
     if not callable(x):
