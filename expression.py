@@ -1,5 +1,6 @@
 import abc
-import lang_types
+import lang_types 
+
 
 class Expression():
     @abc.abstractmethod
@@ -7,29 +8,13 @@ class Expression():
         pass
     
     
-class NameReference(Expression):
+class LocalReference(Expression):
     def __init__(self, name):
         self.reference_name = name
     def evaluate(self,state,space_path):
         return state.get_variable(self.reference_name,space_path)
-    
-class PrintExpression(Expression):
-    def __init__(self,expression_to_print):
-        self.expression_to_print = expression_to_print
-    def evaluate(self,state,space_path):
-        print(self.expression_to_print.evaluate(state,space_path))
-        return NullType()
-    
-class CreateVariable(Expression):
-    def __init__(self,name,value):
-        self.name = name
-        self.value = value
-    def evaluate(self,state,space_path):
-        state.create_variable(self.name,space_path,self.value.evaluate(state,space_path))
-        
-# class CopyVariable(Expression):
-#     def __init__(self,copy_to_name,expression):
-        
+    def set_value(self,state,space_path,value):
+        state.set_variable(self.reference_name,space_path,value)
         
 class CallVariableMethod(Expression):
     def __init__(self,expression,method_name,arguments=[]):
@@ -42,6 +27,8 @@ class CallVariableMethod(Expression):
         lang_types.checkCallableThrow(method)
             
         return method(state,space_path,expression_result,*self.arguments)
+    
+
     
 
         

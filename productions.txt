@@ -7,17 +7,16 @@ start : module
 
 module : blocksquence                                          
         
-block_sequence : block
-              | block block_sequence
+block_sequence : block                                              IMPLEMENTED
+               | block block_sequence                               IMPLEMENTED
 
 block : definition
-      | statement
+      | statement                                                    IMPLEMENTED
       
 definition : variable_definition SEMICOLON
            | type_definition SEMICOLON
            | function_definition SEMICOLON
-           
-variable_definition : CREATE_VAR NAME ASSIGN expression                                                 IMPLEMENTED
+
 
 type_definition : type NAME OPEN_BRACKET typebody CLOSE_BRACKET 
 
@@ -45,12 +44,17 @@ function_statement : RETURN expression SEMICOLON
 
 statement : PRINT expression SEMICOLON                                                                   IMPLEMENTED                                                    
           | expression SEMICOLON                                                                         IMPLEMENTED
-          | condition SEMICOLON                            
-          | variable_definition
-          | variable_setting
+          | condition SEMICOLON                                                                         IMPLEMENTED
+          | variable_definition SEMICOLON                                                               IMPLEMENTED               
+          | reference_definition SEMICOLON                                                              IMPLEMENTED
+          | name_ref ASSIGN expression SEMICOLON
           
-statement_sequence : statement 
-                   | statement statement_sequence
+variable_definition : CREATE_VAR NAME ASSIGN expression                                                 IMPLEMENTED
+
+reference_definition : CREATE_VAR NAME REFERENCE NAME                                                   IMPLEMENTED
+          
+statement_sequence : statement                                     IMPLEMENTED
+                   | statement statement_sequence                  IMPLEMENTED
           
 condition : until_loop                                  IMPLEMENTED                                
           | if_cond                                     IMPLEMENTED 
@@ -62,16 +66,17 @@ if_condition: IF OPEN_PARENTHESIS expression CLOSE_PARENTHESIS OPEN_BRACKET stat
 
 expression : OPEN_PARENTHESIS expression CLOSE_PARENTHESIS                                    IMPLEMENTED                                                 
            | expression PLUS expression                                                       IMPLEMENTED
-           | expression MINUS expression                                                      IMPLEMENTED
+           | MINUS expression                                                                 IMPLEMENTED
            | expression DIVIDE expression                                                     IMPLEMENTED
            | expression TIMES expression                                                      IMPLEMENTED 
-           | expression DOT NAME OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS           IMPLEMENTED          
-           | expression EQUALS expression                                                     
+           | expression DOT NAME OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS           IMPLEMENTED  
+           | expression DOT NAME OPEN_PARENTHESIS CLOSE_PARENTHESIS                           IMPLEMENTED 
+           | expression EQUALS expression                                                     IMPLEMENTED
            | expression AND expression                                                        
            | expression OR expression                                                         
            | value                                                                            IMPLEMENTED
            | name_ref                                                                         IMPLEMENTED
-           | name_ref OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS              
+           | name_ref OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS                      IMPLEMENTED
            
 expression_list : expression                                            IMPLEMENTED
                 | expression COMMA expression_list                      IMPLEMENTED
@@ -87,7 +92,6 @@ bool : TRUE                                                 IMPLEMENTED
 name_ref : NAME                                                         IMPLEMENTED       
          | name_ref DOT NAME              
          
-function_call : name_ref OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS
            
 
                 
