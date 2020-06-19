@@ -2,13 +2,6 @@
 # TODO
 #===============================================================
 
-x <- -1     Unarny minus nie działa jak powinien
-jest dorzuconma funkcja ale trzeba ogarnąć priorytet w produkcjach,
-
-produkcja "name_ref ASSIGN expression SEMICOLON" jest zepsuta, coś z ścieżkami w stanie pewnie
-
-funkcje będą implementowane na referencjach, operator funkcji będzie tworzył specjalny namespace, return będzie wrzucany przez ref.SET(), argumenty będą dorobione jako function_argument_expression, będą to referencje zwrapowane w klasę wołającą REF() w evaluate, 
-
 
 
 
@@ -16,11 +9,6 @@ funkcje będą implementowane na referencjach, operator funkcji będzie tworzył
 nie ma definicji typów, najprawdopodobniej trzeba zrobić jakąś klasę CustomType i pakować w nią pola w runtime używając setattr getattr
 
 nie ma tablic, w gramatyce też
-
-obiekt wywołujący metodę typu z argumentami,
-zmienić implementację operatorów + - * etc na wywołanie tego obiektu
-
-nie ma logicznych operatorów ale nie polecam tykać dopóki nie ogarniemy wywoływania metod bo i tak trzeba będzie poprawić
 
 nie ma pakietów, super easy, klasa Module ma możliwość przekazania
 stanu na którym ma operować, dorzucić namespace do namespace_path i obiekt dokonujący wykonanie pliku i odpalenie modułu
