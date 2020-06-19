@@ -84,8 +84,13 @@ def NumberMINUS(state,space_path,*args):
     this = args[0]
     other = args[1].evaluate(state,space_path)
     checkSameTypeThrow(this,other)
-    return Number(this.value)
-
+    return Number(this.value-other.value)
+    
+def NumberUMINUS(state,space_path,*args):
+    checkArgumentCountThrow(1,args)
+    this = args[0]
+    return Number(-this.value)
+    
 def NumberDIVIDE(state,space_path,*args):
     checkArgumentCountThrow(2,args)
     this = args[0]
@@ -106,6 +111,18 @@ def NumberEQUALS(state,space_path,*args):
     other = args[1].evaluate(state,space_path)
     checkSameTypeThrow(this,other)
     return Bool(this.value == other.value)
+def NumberGREATER(state,space_path,*args):
+    checkArgumentCountThrow(2,args)
+    this = args[0]
+    other = args[1].evaluate(state,space_path)
+    checkSameTypeThrow(this,other)
+    return Bool(this.value > other.value)
+def NumberLESS(state,space_path,*args):
+    checkArgumentCountThrow(2,args)
+    this = args[0]
+    other = args[1].evaluate(state,space_path)
+    checkSameTypeThrow(this,other)
+    return Bool(this.value < other.value)
 
 def NumberSTR(state,space_path,*args):
     checkArgumentCountThrow(1,args)
@@ -122,6 +139,10 @@ class Number(Type):
                            "TIMES" : NumberTIMES,
                            "EQUALS" : NumberEQUALS,
                            "STR" : NumberSTR
+                           "UMINUS": NumberUMINUS,
+                           "EQUALS" : NumberEQUALS,
+                           "GREATER" : NumberGREATER,
+                           "LESS" : NumberLESS
                             }
     def evaluate(self,state,space_path):
         return self

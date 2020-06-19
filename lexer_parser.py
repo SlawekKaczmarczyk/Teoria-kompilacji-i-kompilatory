@@ -42,6 +42,7 @@ tokens = [
     'MINUS',
     'TIMES',
     'DIVIDE',
+    'UMINUS',
     'OPEN_PARENTHESIS',
     'CLOSE_PARENTHESIS',
     'OPEN_BRACKET',
@@ -50,6 +51,8 @@ tokens = [
     'SEMICOLON',
     'NAME',
     'EQUALS',
+    'GREATER',
+    'LESS',
     'DOT',
     'COMMA',
     'STRING',
@@ -70,6 +73,8 @@ t_CLOSE_BRACKET = r'\}'
 t_COLON = r'\:'
 t_SEMICOLON = r'\;'
 t_EQUALS = r'='
+t_GREATER = r'>'
+t_LESS = r'<'
 t_DOT = r'\.'
 t_COMMA = r','
 t_ASSIGN = r'<-'
