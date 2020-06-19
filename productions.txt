@@ -20,9 +20,8 @@ definition : variable_definition SEMICOLON
 
 type_definition : type NAME OPEN_BRACKET typebody CLOSE_BRACKET 
 
-function_definition : func NAME OPEN_PARENTHESIS name_sequence CLOSE_PARENTHESIS function_body
-
-function_body : OPEN_BRACKET function_statement_sequence CLOSE_BRACKET
+function_definition : FUNC_DECLARATION NAME OPEN_PARENTHESIS name_sequence CLOSE_PARENTHESIS OPEN_BRACKET function_statement_sequence CLOSE_BRACKET
+                    | FUNC_DECLARATION NAME OPEN_PARENTHESIS CLOSE_PARENTHESIS OPEN_BRACKET function_statement_sequence CLOSE_BRACKET
 
 name_sequence : NAME
               | NAME COMMA name_sequence 
@@ -42,12 +41,16 @@ empty_field_definition : CREATE_VAR NAME
 function_statement : RETURN expression SEMICOLON                                            
                    | statement
 
+function_statement_sequence : function_statement
+                            | function_statement_sequence function_statement
+
 statement : PRINT expression SEMICOLON                                                                   IMPLEMENTED                                                    
           | expression SEMICOLON                                                                         IMPLEMENTED
           | condition SEMICOLON                                                                         IMPLEMENTED
           | variable_definition SEMICOLON                                                               IMPLEMENTED               
           | reference_definition SEMICOLON                                                              IMPLEMENTED
-          | name_ref ASSIGN expression SEMICOLON
+          | name_ref ASSIGN expression SEMICOLON                                                        IMPLEMENTED
+
           
 variable_definition : CREATE_VAR NAME ASSIGN expression                                                 IMPLEMENTED
 
@@ -80,6 +83,7 @@ expression : OPEN_PARENTHESIS expression CLOSE_PARENTHESIS                      
            | value                                                                            IMPLEMENTED
            | name_ref                                                                         IMPLEMENTED
            | name_ref OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS                      IMPLEMENTED
+           | name_ref OPEN_PARENTHESIS CLOSE_PARENTHESIS 
            
 expression_list : expression                                            IMPLEMENTED
                 | expression COMMA expression_list                      IMPLEMENTED

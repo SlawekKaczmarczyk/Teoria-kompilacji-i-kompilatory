@@ -201,6 +201,38 @@ class Bool(Type):
     def evaluate(self,state,space_path):
         return self
     
+#===========BOOL===========  
+
+def FunctionCALL(state,space_path,*args):
+    this = args[0]
+    checkArgumentCountThrow(1+len(this.argument_names),args)
+    call_args = args[1:]
+    subpath = space_path + ['fn']
+    
+    state.create_namespace(subpath)
+    state.create_variable('return',subpath,Null())
+    
+    for i,name in enumerate(this.argument_names):
+        state.create_variable(name,subpath,args[i+1].evaluate(state,space_path))
+    
+    for statement in this.body:
+        statement.evaluate(state,subpath)
+    
+    result = state.get_variable('return',subpath)
+    state.remove_namespace(subpath)
+    return result
+    
+    
+class Function(Type):
+    def __init__(self,argument_names,body):
+        self.argument_names = argument_names
+        self.body = body
+        self.attributes = {"CALL" : FunctionCALL}
+    
+    def evaluate(self,state,space_path):
+        return self
+    
+    
 #===========EXCEPTION===========
     
 def MyExceptionSTR(state,space_path,*args):

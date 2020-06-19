@@ -26,7 +26,6 @@ class State():
 #         print(f'looking for {namespace} in {self.namespaces.keys()}')
         if namespace in self.namespaces.keys():
             self.namespaces[namespace][name] = variable
-        
             
     def create_variable(self,name,space_path,variable):
         namespace = separator.join(space_path)

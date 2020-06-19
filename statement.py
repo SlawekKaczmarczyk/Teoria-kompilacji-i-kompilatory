@@ -74,6 +74,23 @@ class VariableSetStatement():
     def evaluate(self,state,space_path):
         exp_result = self.expression.evaluate(state,space_path)
         self.var_name.set_value(state,space_path,exp_result)
+        
+class FunctionDefinitionStatement():
+    def __init__(self,fun_name,arg_list,body):
+        self.fun_name = fun_name
+        self.arg_list = arg_list
+        self.body = body
+    def evaluate(self,state,space_path):
+        fun = Function(self.arg_list,self.body)
+        state.create_variable(self.fun_name,space_path,fun)
+        
+class FunctionReturnStatement():
+    def __init__(self,expression):
+        self.expression = expression
+    def evaluate(self,state,space_path):
+        exp_value = self.expression.evaluate(state,space_path)
+        state.set_variable('return',space_path,exp_value)
+    
     
     
         

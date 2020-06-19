@@ -188,6 +188,15 @@ def p_statement_5(p):
 def p_statement_6(p):
     'statement : name_ref ASSIGN expression SEMICOLON'
     p[0] = VariableSetStatement(p[1],p[3])
+
+def p_statement_7(p):
+    'statement : FUNC_DECLARATION NAME OPEN_PARENTHESIS name_sequence CLOSE_PARENTHESIS OPEN_BRACKET function_statement_sequence CLOSE_BRACKET SEMICOLON'
+    p[0] = FunctionDefinitionStatement(p[2],p[4],p[7])
+
+def p_statement_8(p):
+    'statement : FUNC_DECLARATION NAME OPEN_PARENTHESIS CLOSE_PARENTHESIS OPEN_BRACKET function_statement_sequence CLOSE_BRACKET SEMICOLON'
+    p[0] = FunctionDefinitionStatement(p[2],[],p[6])
+    
     
 def p_statement_sequence_1(p):
     'statement_sequence : statement '
@@ -196,6 +205,26 @@ def p_statement_sequence_1(p):
 def p_statement_sequence_2(p):
     'statement_sequence : statement statement_sequence '
     p[0] = [p[1]] + p[2]
+    
+#===========FUNCTION STATEMENT===========
+
+def p_function_statement_1(p):
+    'function_statement : statement'
+    p[0] = p[1]
+    
+def p_fuction_satatement_2(p):
+    'function_statement : RETURN expression SEMICOLON '
+    p[0] = FunctionReturnStatement(p[2])
+    
+def p_fuction_satatement_sequence_1(p):
+    'function_statement_sequence : function_statement'
+    p[0] = [p[1]]
+    
+def p_fuction_satatement_sequence_2(p):
+    'function_statement_sequence : function_statement_sequence function_statement'
+    p[1].append(p[2])
+    p[0] = p[1]
+    
     
 #===========CONDITIONS===========
     
@@ -216,6 +245,7 @@ def p_until_loop_1(p):
     'until_loop : UNTIL expression OPEN_BRACKET statement_sequence CLOSE_BRACKET'
     p[0] = UntilStatement(p[2],p[4])
 
+    
 #===========EXPRESSION LIST===========
 
 def p_expression_list_1(p):
@@ -285,10 +315,30 @@ def p_expression_11(p):
 def p_expression_12(p):
     'expression : name_ref'
     p[0] = p[1]
+    
+def p_expression_13(p):
+    'expression : name_ref OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS'
+    p[0] = CallVariableMethod(p[1],"CALL",p[3])
+    
+def p_expression_14(p):
+    'expression : name_ref OPEN_PARENTHESIS CLOSE_PARENTHESIS'
+    p[0] = CallVariableMethod(p[1],"CALL",[])
 
 def p_name_ref_1(p):
     'name_ref : NAME'
     p[0] = LocalReference(p[1])
+    
+    
+#===========NAME SEQUENCE===========
+
+def p_name_sequence_1(p):
+    'name_sequence : NAME'
+    p[0] = [p[1]]
+    
+def p_name_sequence_2(p):
+    'name_sequence : NAME COMMA name_sequence '
+    p[0] = [p[1]] + p[3]
+    
     
 #===========VALUE===========
 
