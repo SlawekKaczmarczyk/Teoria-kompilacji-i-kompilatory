@@ -2,7 +2,7 @@
 # TODO
 #===============================================================
 
-x <- -1     Nie ma unarnego minusa, w dokumentacji ply był dokładnie taki sam przykład do manipulacji priorytetów produkcji
+x <- -1     Unarny minus nie działa jak powinien
 jest dorzuconma funkcja ale trzeba ogarnąć priorytet w produkcjach,
 
 produkcja "name_ref ASSIGN expression SEMICOLON" jest zepsuta, coś z ścieżkami w stanie pewnie
@@ -21,8 +21,6 @@ obiekt wywołujący metodę typu z argumentami,
 zmienić implementację operatorów + - * etc na wywołanie tego obiektu
 
 nie ma logicznych operatorów ale nie polecam tykać dopóki nie ogarniemy wywoływania metod bo i tak trzeba będzie poprawić
-
-nie ma komparatorów
 
 nie ma pakietów, super easy, klasa Module ma możliwość przekazania
 stanu na którym ma operować, dorzucić namespace do namespace_path i obiekt dokonujący wykonanie pliku i odpalenie modułu

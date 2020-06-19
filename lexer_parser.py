@@ -124,7 +124,7 @@ def t_error(t):
 lexer = lex.lex()
 
 precedence = (
-    ('nonassoc', 'LESS', 'GREATER'),
+    ('nonassoc', 'LESSER', 'GREATER'),
     ('left','PLUS','MINUS'),
     ('left','TIMES','DIVIDE'),
     ('right','UMINUS'),
