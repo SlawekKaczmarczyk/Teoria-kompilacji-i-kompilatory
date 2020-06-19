@@ -1,3 +1,4 @@
+import lang_types
 separator = ':'
 
 class State():
@@ -7,29 +8,24 @@ class State():
                           }
         
     def get_variable(self,name,space_path):
-        for i in range(len(space_path),-1,-1):
-            namespace = separator.join(space_path[0:i])
-            if namespace in self.namespaces:
-                if name in self.namespaces[namespace]:
-                    
-                    print(f'returning variable {name} from namespace {namespace}')
-                    return self.namespaces[namespace][name]
-        return None
+        path = self.get_variable_path(name,space_path)
+        if path!= None:
+            return self.namespaces[path][name]
+        return lang_types.Null()
     
     def get_variable_path(self,name,space_path):
         for i in range(len(space_path),-1,-1):
             namespace = separator.join(space_path[0:i])
             if namespace in self.namespaces:
                 if name in self.namespaces[namespace]:
-                    
-                    print(f'returning variable {name} from namespace {namespace}')
-                    return self.namespaces[namespace][name]
+                    return namespace
         return None
     
-    def set_variable(self,name,space_path):
+    def set_variable(self,name,space_path,variable):
         namespace = separator.join(space_path)
-        if name in self.named_variables:
+        if namespace in self.namespaces:
             self.namespaces[namespace][name] = variable
+        
             
     def create_variable(self,name,space_path,variable):
         namespace = separator.join(space_path)
