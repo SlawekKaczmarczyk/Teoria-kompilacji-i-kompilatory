@@ -119,6 +119,13 @@ def NumberLESSER(state,space_path,*args):
     checkSameTypeThrow(this,other)
     return Bool(this.value < other.value)
 
+def NumberMOD(state,space_path,*args):
+    checkArgumentCountThrow(2,args)
+    this = args[0]
+    other = args[1].evaluate(state,space_path)
+    checkSameTypeThrow(this,other)
+    return Number(this.value % other.value)
+
 def NumberSTR(state,space_path,*args):
     checkArgumentCountThrow(1,args)
     this = args[0]
@@ -135,7 +142,8 @@ class Number(Type):
                            "EQUALS" : NumberEQUALS,
                            "STR" : NumberSTR,
                            "GREATER" : NumberGREATER,
-                           "LESSER" : NumberLESSER
+                           "LESSER" : NumberLESSER,
+                           "MOD" : NumberMOD
                             }
     def evaluate(self,state,space_path):
         return self
@@ -182,6 +190,20 @@ def BoolEQUALS(state,space_path,*args):
     checkSameTypeThrow(this,other)
     return Bool(this.value == other.value)
 
+def BoolAND(state,space_path,*args):
+    checkArgumentCountThrow(2,args)
+    this = args[0]
+    other = args[1].evaluate(state,space_path)
+    checkSameTypeThrow(this,other)
+    return Bool(this.value and other.value)
+
+def BoolOR(state,space_path,*args):
+    checkArgumentCountThrow(2,args)
+    this = args[0]
+    other = args[1].evaluate(state,space_path)
+    checkSameTypeThrow(this,other)
+    return Bool(this.value or other.value)
+
 def BoolSTR(state,space_path,*args):
     checkArgumentCountThrow(1,args)
     this = args[0]
@@ -195,7 +217,9 @@ class Bool(Type):
         self.type_name = 'Bool'
         self.value = bool_value
         self.attributes = {"EQUALS" : BoolEQUALS,
-                           "STR" : BoolSTR
+                           "STR" : BoolSTR,
+                           "AND" : BoolAND,
+                           "OR" : BoolOR
         }
 
     def evaluate(self,state,space_path):

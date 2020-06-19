@@ -58,6 +58,7 @@ tokens = [
     'ASSIGN',
     'REFERENCE',
     'EOF',
+    'MOD'
     ] + list(reserved.values())
 
 
@@ -78,6 +79,7 @@ t_DOT = r'\.'
 t_COMMA = r','
 t_ASSIGN = r'<-'
 t_REFERENCE = r'<='
+t_MOD = r'%'
 
 
 t_ignore  = ' \t'
@@ -124,10 +126,12 @@ def t_error(t):
 lexer = lex.lex()
 
 precedence = (
+    ('nonassoc','AND','OR'),
     ('nonassoc', 'LESSER', 'GREATER'),
     ('left','PLUS','MINUS'),
     ('left','TIMES','DIVIDE'),
     ('left','DOT')
+    
     )
 
 
@@ -323,6 +327,18 @@ def p_expression_13(p):
 def p_expression_14(p):
     'expression : name_ref OPEN_PARENTHESIS CLOSE_PARENTHESIS'
     p[0] = CallVariableMethod(p[1],"CALL",[])
+    
+def p_expression_15(p):
+    'expression : expression AND expression'
+    p[0] = CallVariableMethod(p[1],"AND",[p[3]])
+    
+def p_expression_16(p):
+    'expression : expression OR expression'
+    p[0] = CallVariableMethod(p[1],"OR",[p[3]])
+    
+def p_expression_17(p):
+    'expression : expression MOD expression'
+    p[0] = CallVariableMethod(p[1],"MOD",[p[3]])
 
 def p_name_ref_1(p):
     'name_ref : NAME'
