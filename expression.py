@@ -8,7 +8,6 @@ class Expression():
     def evaluate(self,state,space_path):
         pass
     
-    
 class LocalReference(Expression):
     def __init__(self, name):
         self.reference_name = name

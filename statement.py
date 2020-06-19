@@ -89,7 +89,8 @@ class FunctionReturnStatement():
         self.expression = expression
     def evaluate(self,state,space_path):
         exp_value = self.expression.evaluate(state,space_path)
-        state.set_variable('return',space_path,exp_value)
+        return_path = state.get_variable_path('return',space_path)
+        state.set_variable('return',return_path,exp_value)
     
     
     

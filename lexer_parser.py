@@ -194,13 +194,16 @@ def p_statement_6(p):
     p[0] = VariableSetStatement(p[1],p[3])
 
 def p_statement_7(p):
-    'statement : FUNC_DECLARATION NAME OPEN_PARENTHESIS name_sequence CLOSE_PARENTHESIS OPEN_BRACKET function_statement_sequence CLOSE_BRACKET SEMICOLON'
+    'statement : FUNC_DECLARATION NAME OPEN_PARENTHESIS name_sequence CLOSE_PARENTHESIS OPEN_BRACKET statement_sequence CLOSE_BRACKET SEMICOLON'
     p[0] = FunctionDefinitionStatement(p[2],p[4],p[7])
 
 def p_statement_8(p):
-    'statement : FUNC_DECLARATION NAME OPEN_PARENTHESIS CLOSE_PARENTHESIS OPEN_BRACKET function_statement_sequence CLOSE_BRACKET SEMICOLON'
+    'statement : FUNC_DECLARATION NAME OPEN_PARENTHESIS CLOSE_PARENTHESIS OPEN_BRACKET statement_sequence CLOSE_BRACKET SEMICOLON'
     p[0] = FunctionDefinitionStatement(p[2],[],p[6])
     
+def p_satatement_9(p):
+    'statement : RETURN expression SEMICOLON '
+    p[0] = FunctionReturnStatement(p[2])
     
 def p_statement_sequence_1(p):
     'statement_sequence : statement '
@@ -212,22 +215,22 @@ def p_statement_sequence_2(p):
     
 #===========FUNCTION STATEMENT===========
 
-def p_function_statement_1(p):
-    'function_statement : statement'
-    p[0] = p[1]
+# def p_function_statement_1(p):
+#     'function_statement : statement'
+#     p[0] = p[1]
     
-def p_fuction_satatement_2(p):
-    'function_statement : RETURN expression SEMICOLON '
-    p[0] = FunctionReturnStatement(p[2])
+# def p_fuction_satatement_2(p):
+#     'function_statement : RETURN expression SEMICOLON '
+#     p[0] = FunctionReturnStatement(p[2])
     
-def p_fuction_satatement_sequence_1(p):
-    'function_statement_sequence : function_statement'
-    p[0] = [p[1]]
+# def p_fuction_satatement_sequence_1(p):
+#     'function_statement_sequence : function_statement'
+#     p[0] = [p[1]]
     
-def p_fuction_satatement_sequence_2(p):
-    'function_statement_sequence : function_statement_sequence function_statement'
-    p[1].append(p[2])
-    p[0] = p[1]
+# def p_fuction_satatement_sequence_2(p):
+#     'function_statement_sequence : function_statement_sequence function_statement'
+#     p[1].append(p[2])
+#     p[0] = p[1]
     
     
 #===========CONDITIONS===========
