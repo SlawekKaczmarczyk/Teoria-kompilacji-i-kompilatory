@@ -89,7 +89,7 @@ def NumberDIVIDE(state,space_path,*args):
     this = args[0]
     other = args[1].evaluate(state,space_path)
     checkSameTypeThrow(this,other)
-    return Number(this.value/other.value)
+    return Number(this.value//other.value)
 
 def NumberTIMES(state,space_path,*args):
     checkArgumentCountThrow(2,args)

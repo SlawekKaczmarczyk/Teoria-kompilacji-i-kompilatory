@@ -287,59 +287,59 @@ def p_expression_4(p):
 
 # DON'T TOUCH until Number will be split to float and int
 
-# def p_expression_4(p):
-#     'expression : expression DIVIDE expression'
-#     p[0] = CallVariableMethod(p[1],"DIVIDE",[p[3]])
-    
 def p_expression_5(p):
+    'expression : expression DIVIDE expression'
+    p[0] = CallVariableMethod(p[1],"DIVIDE",[p[3]])
+    
+def p_expression_6(p):
     'expression : expression TIMES expression'
     p[0] = CallVariableMethod(p[1],"TIMES",[p[3]])
     
-def p_expression_6(p):
+def p_expression_7(p):
     'expression : expression EQUALS expression'
     p[0] = CallVariableMethod(p[1],"EQUALS",[p[3]])
     
-def p_expression_7(p):
+def p_expression_8(p):
     'expression : expression LESSER expression'
     p[0] = CallVariableMethod(p[1],"LESSER",[p[3]])
     
-def p_expression_8(p):
+def p_expression_9(p):
     'expression : expression GREATER expression'
     p[0] = CallVariableMethod(p[1],"GREATER",[p[3]])
     
-def p_expression_9(p):
+def p_expression_10(p):
     'expression : OPEN_PARENTHESIS expression CLOSE_PARENTHESIS'
     p[0] = p[2]
     
-def p_expression_10(p):
+def p_expression_11(p):
     'expression : expression DOT NAME OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS'
     p[0] = CallVariableMethod(p[1],p[3],p[5])
 
-def p_expression_11(p):
+def p_expression_12(p):
     'expression : expression DOT NAME OPEN_PARENTHESIS CLOSE_PARENTHESIS' 
     p[0] = CallVariableMethod(p[1],p[3],[])
     
-def p_expression_12(p):
+def p_expression_13(p):
     'expression : name_ref'
     p[0] = p[1]
     
-def p_expression_13(p):
+def p_expression_14(p):
     'expression : name_ref OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS'
     p[0] = CallVariableMethod(p[1],"CALL",p[3])
     
-def p_expression_14(p):
+def p_expression_15(p):
     'expression : name_ref OPEN_PARENTHESIS CLOSE_PARENTHESIS'
     p[0] = CallVariableMethod(p[1],"CALL",[])
     
-def p_expression_15(p):
+def p_expression_16(p):
     'expression : expression AND expression'
     p[0] = CallVariableMethod(p[1],"AND",[p[3]])
     
-def p_expression_16(p):
+def p_expression_17(p):
     'expression : expression OR expression'
     p[0] = CallVariableMethod(p[1],"OR",[p[3]])
     
-def p_expression_17(p):
+def p_expression_18(p):
     'expression : expression MOD expression'
     p[0] = CallVariableMethod(p[1],"MOD",[p[3]])
 
