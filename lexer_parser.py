@@ -52,7 +52,7 @@ tokens = [
     'NAME',
     'EQUALS',
     'GREATER',
-    'LESS',
+    'LESSER',
     'DOT',
     'COMMA',
     'STRING',
@@ -73,8 +73,8 @@ t_CLOSE_BRACKET = r'\}'
 t_COLON = r'\:'
 t_SEMICOLON = r'\;'
 t_EQUALS = r'='
-t_GREATER = r'>'
-t_LESS = r'<'
+t_GREATER = r'>>'
+t_LESSER = r'<<'
 t_DOT = r'\.'
 t_COMMA = r','
 t_ASSIGN = r'<-'
@@ -236,6 +236,8 @@ def p_expression_3(p):
     'expression : expression MINUS expression'
     p[0] = CallVariableMethod(p[1],"MINUS",[p[3]])
 
+# DON'T TOUCH until Number will be split to float and int
+
 # def p_expression_4(p):
 #     'expression : expression DIVIDE expression'
 #     p[0] = CallVariableMethod(p[1],"DIVIDE",[p[3]])
@@ -249,18 +251,26 @@ def p_expression_6(p):
     p[0] = CallVariableMethod(p[1],"EQUALS",[p[3]])
     
 def p_expression_7(p):
+    'expression : expression LESSER expression'
+    p[0] = CallVariableMethod(p[1],"LESSER",[p[3]])
+    
+def p_expression_8(p):
+    'expression : expression GREATER expression'
+    p[0] = CallVariableMethod(p[1],"GREATER",[p[3]])
+    
+def p_expression_9(p):
     'expression : OPEN_PARENTHESIS expression CLOSE_PARENTHESIS'
     p[0] = p[2]
     
-def p_expression_8(p):
+def p_expression_10(p):
     'expression : expression DOT NAME OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS'
     p[0] = CallVariableMethod(p[1],p[3],p[5])
     
-def p_expression_9(p):
+def p_expression_11(p):
     'expression : expression DOT NAME OPEN_PARENTHESIS CLOSE_PARENTHESIS' 
     p[0] = CallVariableMethod(p[1],p[3],[])
     
-def p_expression_10(p):
+def p_expression_12(p):
     'expression : name_ref'
     p[0] = p[1]
     

@@ -40,10 +40,13 @@ class UntilStatement():
     def evaluate(self,state,space_path):
         subpath = space_path + ['until']
         state.create_namespace(subpath)
-        false = Bool(False)
+        true = Bool(True)
         while True:
-            condition_result = CallVariableMethod(false,"EQUALS",[self.condition]).evaluate(state,space_path)
-            if condition_result.value == True:
+            cond = self.condition.evaluate(state,space_path)
+            print(f"cond result {cond.value}")
+            condition_result = CallVariableMethod(true,"EQUALS",[cond]).evaluate(state,space_path)
+            print(f"is cond true {condition_result.value}")
+            if condition_result.value == False:
                 for statement in self.statements:
                     statement.evaluate(state,subpath)
             else:

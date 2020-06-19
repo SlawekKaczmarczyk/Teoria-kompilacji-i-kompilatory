@@ -111,13 +111,15 @@ def NumberEQUALS(state,space_path,*args):
     other = args[1].evaluate(state,space_path)
     checkSameTypeThrow(this,other)
     return Bool(this.value == other.value)
+
 def NumberGREATER(state,space_path,*args):
     checkArgumentCountThrow(2,args)
     this = args[0]
     other = args[1].evaluate(state,space_path)
     checkSameTypeThrow(this,other)
     return Bool(this.value > other.value)
-def NumberLESS(state,space_path,*args):
+
+def NumberLESSER(state,space_path,*args):
     checkArgumentCountThrow(2,args)
     this = args[0]
     other = args[1].evaluate(state,space_path)
@@ -138,11 +140,11 @@ class Number(Type):
                            "DIVIDE" : NumberDIVIDE,
                            "TIMES" : NumberTIMES,
                            "EQUALS" : NumberEQUALS,
-                           "STR" : NumberSTR
+                           "STR" : NumberSTR,
                            "UMINUS": NumberUMINUS,
                            "EQUALS" : NumberEQUALS,
                            "GREATER" : NumberGREATER,
-                           "LESS" : NumberLESS
+                           "LESSER" : NumberLESSER
                             }
     def evaluate(self,state,space_path):
         return self
@@ -177,7 +179,6 @@ class String(Type):
                            "EQUALS" : StringEQUALS,
                            "STR" : StringSTR
                             }
-
     def evaluate(self,state,space_path):
         return self
         
@@ -194,9 +195,9 @@ def BoolSTR(state,space_path,*args):
     checkArgumentCountThrow(1,args)
     this = args[0]
     if this.value == True:
-        return String("True")
+        return String("true")
     else:
-        return String("False")
+        return String("false")
    
 class Bool(Type): 
     def __init__(self,bool_value):

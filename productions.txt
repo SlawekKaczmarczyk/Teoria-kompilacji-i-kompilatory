@@ -73,7 +73,9 @@ expression : OPEN_PARENTHESIS expression CLOSE_PARENTHESIS                      
            | expression DOT NAME OPEN_PARENTHESIS CLOSE_PARENTHESIS                           IMPLEMENTED 
            | expression EQUALS expression                                                     IMPLEMENTED
            | expression AND expression                                                        
-           | expression OR expression                                                         
+           | expression OR expression
+           | expression GREATER expression                                                    IMPLEMENTED
+           | expression LESS expression                                                       IMPLEMENTED
            | value                                                                            IMPLEMENTED
            | name_ref                                                                         IMPLEMENTED
            | name_ref OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS                      IMPLEMENTED
