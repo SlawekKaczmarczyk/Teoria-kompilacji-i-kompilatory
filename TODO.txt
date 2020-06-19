@@ -3,9 +3,15 @@
 #===============================================================
 
 x <- -1     Nie ma unarnego minusa, w dokumentacji ply był dokładnie taki sam przykład do manipulacji priorytetów produkcji
+jest dorzuconma funkcja ale trzeba ogarnąć priorytet w produkcjach,
 
-nie ma jeszcze implementacji funkcji, do obsługi returna najprawdopodobniej trzeba dorobić
-przekazywanie rodzica w metodzie evaluate żeby dziecko mogło wyrzucić kaskadowo na górę hierarchii flagę i zwracaną wartość, mozna też tego użyć tego jako mechanizm rzucania wyjątków
+produkcja "name_ref ASSIGN expression SEMICOLON" jest zepsuta, coś z ścieżkami w stanie pewnie
+
+funkcje będą implementowane na referencjach, operator funkcji będzie tworzył specjalny namespace, return będzie wrzucany przez ref.SET(), argumenty będą dorobione jako function_argument_expression, będą to referencje zwrapowane w klasę wołającą REF() w evaluate, 
+
+
+
+
 
 nie ma definicji typów, najprawdopodobniej trzeba zrobić jakąś klasę CustomType i pakować w nią pola w runtime używając setattr getattr
 
