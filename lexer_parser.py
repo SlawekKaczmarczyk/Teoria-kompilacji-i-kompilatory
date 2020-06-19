@@ -42,7 +42,6 @@ tokens = [
     'MINUS',
     'TIMES',
     'DIVIDE',
-    'UMINUS',
     'OPEN_PARENTHESIS',
     'CLOSE_PARENTHESIS',
     'OPEN_BRACKET',
@@ -119,14 +118,21 @@ def t_error(t):
      raise Exception()
      t.lexer.skip(1)
 
+
 lexer = lex.lex()
 
+precedence = (
+    ('nonassoc', 'LESS', 'GREATER'),
+    ('left','PLUS','MINUS'),
+    ('left','TIMES','DIVIDE'),
+    ('right','UMINUS'),
+    )
 
 
 #===============================================
 # PARSER
 #===============================================
-# 
+#
 
 
 def p_module(p):
@@ -240,11 +246,19 @@ def p_expression_6(p):
 def p_expression_7(p):
     'expression : expression DOT NAME OPEN_PARENTHESIS expression_list CLOSE_PARENTHESIS'
     p[0] = CallVariableMethod(p[1],p[3],p[5])
-    
+
 def p_expression_8(p):
+    'expression : expression GREATER expression'
+    p[0] = CallVariableMethod(p[1], "GREATER", [p[3]])
+    
+def p_expression_9(p):
     'expression : name_ref'
     p[0] = p[1]
-    
+
+def p_expression_0(p):
+    'expression : MINUS expression %prec UMINUS'
+    p[0] = -p[1]
+
 def p_name_ref_1(p):
     'name_ref : NAME'
     p[0] = NameReference(p[1])
